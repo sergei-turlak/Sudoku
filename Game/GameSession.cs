@@ -64,22 +64,22 @@ namespace Sudoku.Game
                 return true;
             }
 
-            AllowableMistakesLeft--;
-
             if (AllowableMistakesLeft == 0)
             {
                 PlayingTime = DateTime.Now - startTime.Value;
                 Date = DateTime.Now;
                 IsGameSuccessfullySolved = false;
                 OnFailedSolution();
+                return false;
             }
+            AllowableMistakesLeft--;
 
             return false;
         }
 
         private void FillDraftField()
         {
-            int primaryKnownElements = (byte)Level + 28;
+            int primaryKnownElements = (byte)Level + 29;
             Point[] shuffledOrder = GetShuffledPointsOrder(n, n);
             for (int i = 0; i < primaryKnownElements; i++)
                 DraftField[shuffledOrder[i].X, shuffledOrder[i].Y] = baseField[shuffledOrder[i].X, shuffledOrder[i].Y];
